@@ -75,11 +75,11 @@ create table certification (
 
 create table management (
     start_dt timestamp not null,
-    end_dt timestamp not null,
+    end_dt timestamp,
     studio_id integer references studio on delete cascade,
     manager_id integer references person on delete cascade,
     check (start_dt < end_dt),
-    primary key (start_dt, end_dt, studio_id)
+    primary key (start_dt, studio_id)
 );
 
 CREATE SEQUENCE segment_id_seq

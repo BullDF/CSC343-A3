@@ -5,7 +5,7 @@ create table q1 (
     studio_id bigint not null,
     manager varchar(25) not null,
     num_albums positiveInt not null
-)
+);
 
 drop view if exists managers cascade;
 drop view if exists albums_with_studios cascade;

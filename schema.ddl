@@ -4,7 +4,7 @@ set search_path to recordingcompany;
 
 CREATE DOMAIN positiveFloat AS real
     DEFAULT NULL
-    CHECK (VALUE > 0.0);
+    CHECK (VALUE >= 0.0);
 
 CREATE SEQUENCE person_id_seq
     AS bigint
@@ -26,7 +26,7 @@ CREATE SEQUENCE studio_id_seq
 create table studio (
     studio_id bigint primary key default nextval('studio_id_seq'),
     name varchar(25) not null,
-    address varchar(10) not null
+    address varchar(50) not null
 );
 
 CREATE SEQUENCE session_id_seq
@@ -60,7 +60,7 @@ create table band (
     name varchar(25) not null
 );
 
-create table membership (
+create table bandmembership (
     band_id integer references band on delete cascade,
     player_id integer references person on delete CASCADE,
     primary key (band_id, player_id)
@@ -89,8 +89,8 @@ CREATE SEQUENCE segment_id_seq
 
 create table segment (
     segment_id bigint primary key default nextval('segment_id_seq'),
-    integer_seconds integer not null,
-    format varchar(25) not null,
+    duration_seconds integer not null,
+    format varchar(50) not null,
     session_id integer references session on delete cascade
 );
 
@@ -116,7 +116,8 @@ CREATE SEQUENCE album_id_seq
     MINVALUE 1;
 
 create table album (
-    alubm_id bigint primary key default nextval('album_id_seq'),
+    album_id bigint primary key default nextval('album_id_seq'),
+    name varchar(50) not null,
     release_date timestamp not null
 );
 
@@ -129,7 +130,7 @@ create table trackalbum (
 create table sessionplayer (
     session_id integer references session on delete cascade,
     player_id integer references person on delete cascade,
-    primary key (session_id , player_id)
+    primary key (session_id, player_id)
 );
 
 create table sessionband (

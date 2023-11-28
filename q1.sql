@@ -31,7 +31,8 @@ natural join session;
 -- Count number of albums studios contributed to
 create view num_albums_contributed as
 select studio_id, count(distinct album_id) as num_albums
-from albums_with_studios;
+from albums_with_studios
+group by studio_id;
 
 -- Final answer
 insert into q1

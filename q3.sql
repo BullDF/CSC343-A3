@@ -1,11 +1,4 @@
 set search_path to recordingcompany;
-drop table if exists q3;
-
-create table q3 (
-    session_id bigint not null,
-    player_id bigint not null,
-    player_name varchar(25) not null
-);
 
 drop view if exists total_segment_duration cascade;
 drop view if exists players_with_sessions cascade;
@@ -41,7 +34,6 @@ from sessionband natural join bandmembership)) s;
 -- (we used "session_id in" for the case that
 -- there might be multiple sessions with
 -- the longest total segment length)
-insert into q3
 select session_id, player_id, name as player_name
 from players_with_sessions
 join person on player_id = person_id

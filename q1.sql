@@ -1,11 +1,4 @@
 set search_path to recordingcompany;
-drop table if exists q1 cascade;
-
-create table q1 (
-    studio_id bigint not null,
-    current_manager varchar(25) not null,
-    num_albums positiveInt not null
-);
 
 drop view if exists current_managers cascade;
 drop view if exists albums_with_studios cascade;
@@ -35,7 +28,6 @@ from albums_with_studios
 group by studio_id;
 
 -- Final answer
-insert into q1
 select studio_id, current_manager, coalesce(num_albums, 0)
 from current_managers_with_names
 natural left join num_albums_contributed;

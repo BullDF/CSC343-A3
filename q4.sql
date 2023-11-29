@@ -1,12 +1,4 @@
 set search_path to recordingcompany;
-drop table if exists q4;
-
-create table q4 (
-    album_id bigint not null,
-    album_name varchar(50) not null,
-    num_sessions int not null,
-    num_players int not null
-);
 
 drop view if exists albums_with_sessions cascade;
 drop view if exists players_with_sessions cascade;
@@ -63,7 +55,6 @@ from album_with_players
 group by album_id;
 
 -- Final answer
-insert into q4
 select album_id, name as album_name, num_sessions, num_players
 from album_with_most_sessions
 natural join album

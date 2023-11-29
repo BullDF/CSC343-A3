@@ -68,9 +68,127 @@ insert into Management(start_dt, end_dt, studio_id, manager_id) values
 
 do $$
 begin
+    -- Session 1
     for i in 1..10 loop
-        insert into Segment(duration_seconds, format, session_id) values
-            (60, 'WAV', 1);
+        insert into Segment(duration_seconds, format, session_id) values (60, 'WAV', 1);
+    end loop;
+
+    -- Session 2
+    for i in 1..5 loop
+        insert into Segment(duration_seconds, format, session_id) values (60, 'WAV', 2);
+    end loop;
+
+    -- Session 3
+    for i in 1..4 loop
+        insert into Segment(duration_seconds, format, session_id) values (60, 'WAV', 3);
+    end loop;
+
+    -- Session 4
+    for i in 1..2 loop
+        insert into Segment(duration_seconds, format, session_id) values (120, 'WAV', 4);
+    end loop;
+
+    -- Session 6
+    for i in 1..5 loop
+        insert into Segment(duration_seconds, format, session_id) values (60, 'WAV', 6);
+    end loop;
+
+    -- Session 7
+    for i in 1..9 loop
+        insert into Segment(duration_seconds, format, session_id) values (180, 'AIFF', 7);
+    end loop;
+
+    -- Session 8
+    for i in 1..6 loop
+        insert into Segment(duration_seconds, format, session_id) values (180, 'WAV', 8);
     end loop;
 end;
 $$;
+
+insert into Track(name) values
+    ('5,000 Candles in the Wind'),
+    ('Catch Your Dream'),
+    ('May Song'),
+    ('The Pit'),
+    ('Remember'),
+    ('The Way You Look Tonight'),
+    ('Another Song');
+
+do $$
+begin
+    -- Session 2
+    for i in 11..15 loop
+        insert into TrackSegment(segment_id, track_id) values (i, 1);
+    end loop;
+
+    -- Session 3
+    for i in 16..19 loop
+        insert into TrackSegment(segment_id, track_id) values (i, 2);
+    end loop;
+
+    -- Session 4
+    for i in 20..21 loop
+        insert into TrackSegment(segment_id, track_id) values (i, 2);
+    end loop;
+
+    -- Session 6
+    for i in 22..26 loop
+        insert into TrackSegment(segment_id, track_id) values (i, 1);
+        insert into TrackSegment(segment_id, track_id) values (i, 2)
+    end loop;
+
+    -- Session 7
+    for i in 32..33 loop
+        insert into TrackSegment(segment_id, track_id) values (i, 3);
+    end loop;
+
+    -- Session 7
+    for i in 34..35 loop
+        insert into TrackSegment(segment_id, track_id) values (i, 4);
+    end loop;
+
+    -- Session 8
+    for i in 36..37 loop
+        insert into TrackSegment(segment_id, track_id) values (i, 5);
+    end loop;
+
+    -- Session 8
+    for i in 38..39 loop
+        insert into TrackSegment(segment_id, track_id) values (i, 6);
+    end loop;
+
+    -- Session 8
+    for i in 40..41 loop
+        insert into TrackSegment(segment_id, track_id) values (i, 7);
+    end loop;
+end;
+$$;
+
+insert into Album(name, release_date) values
+    ('The Awesome Album', '2023-05-25'),
+    ('Another Awesome Album', '2023-10-29');
+
+insert into TrackAlbum(track_id, album_id) values
+    (1, 1),
+    (2, 1),
+    (3, 2),
+    (4, 2),
+    (5, 2),
+    (6, 2),
+    (7, 2);
+
+insert into SessionPlayer(session_id, player_id) values
+    (1, 1000),
+    (2, 1000),
+    (3, 1000),
+    (6, 6754),
+    (6, 1234),
+    (7, 6754),
+    (8, 6754);
+
+insert into SessionBand(session_id, band_id) values
+    (1, 1),
+    (2, 1),
+    (3, 1),
+    (4, 1),
+    (5, 1);

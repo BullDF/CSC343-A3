@@ -81,7 +81,7 @@ create table management (
     end_dt timestamp,
     studio_id integer references studio on delete cascade,
     manager_id integer references person on delete cascade,
-    check (start_dt < end_dt),
+    check (start_dt <= end_dt),
     primary key (start_dt, studio_id)
 );
 
@@ -93,7 +93,7 @@ CREATE SEQUENCE segment_id_seq
 create table segment (
     segment_id bigint primary key default nextval('segment_id_seq'),
     duration_seconds integer not null,
-    format varchar(50) not null,
+    format varchar(10) not null,
     session_id integer references session on delete cascade
 );
 

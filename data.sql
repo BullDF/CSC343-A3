@@ -56,3 +56,21 @@ insert into Certification(engineer_id, certificate) values
     (5678, 'ABCDEFGH-123I'),
     (5678, 'JKLMNOPQ-456R'),
     (9942, 'SOUND-123-AUDIO');
+
+insert into Management(start_dt, end_dt, studio_id, manager_id) values
+    ('2018-12-02', null, 1, 1233),
+    ('2017-01-13', '2018-12-01', 1, 1234),
+    ('2008-03-21', '2017-01-12', 1, 1231),
+    ('2011-05-07', null, 2, 1233),
+    ('2020-09-05', null, 3, 1232),
+    ('2016-09-05', '2020-09-04', 3, 1234),
+    ('2010-09-05', '2016-09-04', 3, 1232);
+
+do $$
+begin
+    for i in 1..10 loop
+        insert into Segment(duration_seconds, format, session_id) values
+            (60, 'WAV', 1)
+    end loop;
+end;
+$$;

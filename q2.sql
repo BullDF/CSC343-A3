@@ -12,6 +12,6 @@ natural join bandmembership)) s
 group by player_id;
 
 -- Final answer
-select person_id, coalesce(num_sessions, 0)
+select person_id, coalesce(num_sessions, 0) as num_sessions
 from person left join count_players_sessions
 on person_id = player_id;

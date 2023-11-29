@@ -28,6 +28,6 @@ from albums_with_studios
 group by studio_id;
 
 -- Final answer
-select studio_id, current_manager, coalesce(num_albums, 0)
+select studio_id, current_manager, coalesce(num_albums, 0) as num_albums
 from current_managers_with_names
 natural left join num_albums_contributed;

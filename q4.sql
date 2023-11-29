@@ -49,7 +49,7 @@ select * from
 ((select session_id, player_id from sessionplayer)
 union
 (select session_id, player_id
-from sessionband natural join bandmembership));
+from sessionband natural join bandmembership)) s;
 
 -- Find players who have played on the target album
 create view album_with_players as

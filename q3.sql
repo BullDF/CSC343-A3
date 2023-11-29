@@ -3,7 +3,7 @@ drop table if exists q3;
 
 create table q3 (
     session_id bigint not null,
-    player_id bigint not null
+    player_id int not null
 );
 
 drop view if exists total_segment_duration cascade;

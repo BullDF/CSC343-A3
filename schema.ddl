@@ -2,10 +2,6 @@ drop schema if exists RecordingCompany cascade;
 create schema RecordingCompany;
 set search_path to RecordingCompany;
 
-create domain positiveInt as int
-    default null
-    check (value >= 0);
-
 create domain positiveFloat as real
     default null
     check (value >= 0.0);

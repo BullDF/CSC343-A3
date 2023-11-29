@@ -2,10 +2,6 @@ drop schema if exists RecordingCompany cascade;
 create schema RecordingCompany;
 set search_path to RecordingCompany;
 
-create domain positiveFloat as real
-    default null
-    check (value >= 0.0);
-
 create sequence person_id_seq
     as bigint
     increment by 1
@@ -38,9 +34,10 @@ create table Session (
     session_id bigint primary key default nextval('session_id_seq'),
     start_dt timestamp not null,
     end_dt timestamp not null,
-    fee positiveFloat not null,
+    fee float not null,
     studio_id integer references Studio on delete cascade,
     check (start_dt < end_dt),
+    check (fee >= 0),
     unique (start_dt, studio_id)
 );
 

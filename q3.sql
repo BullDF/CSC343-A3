@@ -6,7 +6,7 @@ create table q3 (
     player_id bigint not null;
 );
 
-drop view if exists 
+drop view if exists total_segment_duration cascade;
 
 
 -- Sum the number of seconds for each session

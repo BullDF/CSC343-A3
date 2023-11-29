@@ -70,6 +70,18 @@ create table bandmembership (
     primary key (band_id, player_id)
 );
 
+create table sessionplayer (
+    session_id integer references session on delete cascade,
+    player_id integer references person on delete cascade,
+    primary key (session_id, player_id)
+);
+
+create table sessionband (
+    session_id integer references session on delete cascade,
+    band_id integer references band on delete cascade,
+    primary key (session_id , band_id)
+);
+
 create table certification (
     engineer_id integer references person on delete cascade,
     certificate varchar(100) not NULL,
@@ -128,16 +140,4 @@ create table trackalbum (
     track_id integer references track on delete cascade,
     album_id integer references album on delete cascade,
     primary key (track_id, album_id)
-);
-
-create table sessionplayer (
-    session_id integer references session on delete cascade,
-    player_id integer references person on delete cascade,
-    primary key (session_id, player_id)
-);
-
-create table sessionband (
-    session_id integer references session on delete cascade,
-    band_id integer references band on delete cascade,
-    primary key (session_id , band_id)
 );

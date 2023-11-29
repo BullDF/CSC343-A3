@@ -4,7 +4,7 @@ drop table if exists q3;
 create table q3 (
     session_id bigint not null,
     player_id bigint not null,
-    name varchar(25) not null
+    player_name varchar(25) not null
 );
 
 drop view if exists total_segment_duration cascade;
@@ -23,6 +23,15 @@ select session_id from total_segment_duration
 where total_duration =
 (select max(total_duration) from total_segment_duration);
 
+-- Expand SessionBand to band members on each session
+-- and concatenate to individual players
+create view players_with_sessions as
+select * from
+((select session_id, player_id from sessionplayer)
+union
+(select session_id, player_id
+from sessionband natural join bandmembership));
+
 
 -- Final answer
 -- First we find players who played in that session,
@@ -32,11 +41,8 @@ where total_duration =
 -- there might be multiple sessions with
 -- the longest total segment length)
 insert into q3
-select session_id, player_id, name from
-((select session_id, player_id from sessionplayer
-where session_id in (select * from longest_segment_session))
-union
-(select session_id, player_id from sessionband
-natural join bandmembership
-where session_id in (select * from longest_segment_session))) s
-join person on player_id = person_id;
+select session_id, player_id, name as player_name
+from players_with_sessions
+join person on player_id = person_id
+where session_id in
+(select * from longest_segment_session);

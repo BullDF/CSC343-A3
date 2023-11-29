@@ -3,7 +3,7 @@ drop table if exists q1 cascade;
 
 create table q1 (
     studio_id bigint not null,
-    manager varchar(25) not null,
+    current_manager varchar(25) not null,
     num_albums positiveInt not null
 );
 
@@ -18,7 +18,7 @@ where end_dt is null;
 
 -- Find the names of the current managers
 create view current_managers_with_names as
-select studio_id, name as manager
+select studio_id, name as current_manager
 from current_managers join person on manager_id = person_id;
 
 -- Find albums that studios contributed to
@@ -36,6 +36,6 @@ group by studio_id;
 
 -- Final answer
 insert into q1
-select studio_id, manager, coalesce(num_albums, 0)
+select studio_id, current_manager, coalesce(num_albums, 0)
 from current_managers_with_names
 natural left join num_albums_contributed;

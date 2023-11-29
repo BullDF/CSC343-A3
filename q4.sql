@@ -58,7 +58,7 @@ from required_sessions natural join players_with_sessions;
 
 -- Count number of players who have played on the target album
 create view count_players as
-select album_id, count(distinct player_id)
+select album_id, count(distinct player_id) as num_players
 from album_with_players
 group by album_id;
 

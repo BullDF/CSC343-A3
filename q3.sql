@@ -2,6 +2,7 @@ set search_path to recordingcompany;
 drop table if exists q3;
 
 create table q3 (
+    session_id bigint not null,
     player_id bigint not null,
     name varchar(25) not null
 );
@@ -31,11 +32,11 @@ where total_duration =
 -- there might be multiple sessions with
 -- the longest total segment length)
 insert into q3
-select player_id, name from
-((select player_id from sessionplayer
+select session_id, player_id, name from
+((select session_id, player_id from sessionplayer
 where session_id in (select * from longest_segment_session))
 union
-(select player_id from sessionband
+(select session_id, player_id from sessionband
 natural join bandmembership
 where session_id in (select * from longest_segment_session))) s
 join person on player_id = person_id;

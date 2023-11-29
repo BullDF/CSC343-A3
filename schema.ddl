@@ -1,3 +1,20 @@
+-- COULD NOT
+-- There are not gaps in management, a manager is in their role until the day when the next 
+-- manager begins. This is a constraint that could not be enforced.
+
+-- DID NOT
+-- There is at least 1 recording engineer and at most 3 in each session. This constraint
+-- can be enforced without triggers or assertions. We could have done it by storing the 
+-- relations and the instances in one table. But we did not do this because we prioritize 
+-- eliminating redundancy and NULL values--for example, we could have atrributes engineer1, 
+-- engineer2, engineer3 for each session, but this can result in NULL values in two of them. 
+-- Therefore we created the relations/membership tables as separate tables, thus we cannot 
+-- check for any constraint relating to amounts or cardinalities. 
+-- Other constraints we did not enforce for the same reason are:
+-- Albums contains at least two tracks
+-- A band has at least one person in it
+-- A track appears in at least one album
+
 drop schema if exists RecordingCompany cascade;
 create schema RecordingCompany;
 set search_path to RecordingCompany;

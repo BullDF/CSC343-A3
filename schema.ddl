@@ -15,6 +15,21 @@
 -- A band has at least one person in it
 -- A track appears in at least one album
 
+-- EXTRA CONSTRAINTS
+-- We didn't make any extra constraints.
+
+-- ASSUMPTIONS:
+-- 1. We assumed that fee can be 0 for a session. It is possible that
+-- a band is a friend of the manager and the manager decides to give them
+-- a free session.
+
+-- 2. We assumed that a person can be of multiple roles.
+-- For example, a sound engineer can be a manager, a band member,
+-- an individual player of a session, etc.
+-- Hence we didn't specify the type of people in the Person table.
+
+-- Besides this, we didn't make any other assumptions other than the one specified.
+
 drop schema if exists RecordingCompany cascade;
 create schema RecordingCompany;
 set search_path to RecordingCompany;

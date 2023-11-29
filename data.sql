@@ -70,7 +70,7 @@ do $$
 begin
     for i in 1..10 loop
         insert into Segment(duration_seconds, format, session_id) values
-            (60, 'WAV', 1)
+            (60, 'WAV', 1);
     end loop;
 end;
 $$;

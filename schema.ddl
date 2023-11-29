@@ -1,143 +1,143 @@
-drop schema if exists recordingcompany CASCADE;
-create schema recordingcompany;
-set search_path to recordingcompany;
+drop schema if exists RecordingCompany cascade;
+create schema RecordingCompany;
+set search_path to RecordingCompany;
 
 create domain positiveInt as int
     default null
     check (value >= 0);
 
-CREATE DOMAIN positiveFloat AS real
-    DEFAULT NULL
-    CHECK (VALUE >= 0.0);
+create domain positiveFloat as real
+    default null
+    check (value >= 0.0);
 
-CREATE SEQUENCE person_id_seq
-    AS bigint
-    INCREMENT BY 1
-    MINVALUE 1;
+create sequence person_id_seq
+    as bigint
+    increment by 1
+    minvalue 1;
 
-create table person (
+create table Person (
     person_id bigint primary key default nextval('person_id_seq'),
     name varchar(25) not null,
     email varchar(50) not null,
     phone varchar(25) not null
 );
 
-CREATE SEQUENCE studio_id_seq
-    AS bigint
-    INCREMENT BY 1
-    MINVALUE 1;
+create sequence studio_id_seq
+    as bigint
+    increment by 1
+    minvalue 1;
 
-create table studio (
+create table Studio (
     studio_id bigint primary key default nextval('studio_id_seq'),
     name varchar(25) not null,
     address varchar(100) not null
 );
 
-CREATE SEQUENCE session_id_seq
-    AS bigint
-    INCREMENT BY 1
-    MINVALUE 1;
+create sequence session_id_seq
+    as bigint
+    increment by 1
+    minvalue 1;
 
-create table session (
+create table Session (
     session_id bigint primary key default nextval('session_id_seq'),
     start_dt timestamp not null,
     end_dt timestamp not null,
     fee positiveFloat not null,
-    studio_id integer REFERENCES studio on delete CASCADE,
+    studio_id integer references Studio on delete cascade,
     check (start_dt < end_dt),
     unique (start_dt, studio_id)
 );
 
-create table sessionengineer (
-    session_id integer references session on delete cascade,
-    engineer_id integer references person on delete cascade,
+create table SessionEngineer (
+    session_id integer references Session on delete cascade,
+    engineer_id integer references Person on delete cascade,
     primary key (session_id, engineer_id)
 );
 
-CREATE SEQUENCE band_id_seq
-    AS bigint
-    INCREMENT BY 1
-    MINVALUE 1;
+create sequence band_id_seq
+    as bigint
+    increment by 1
+    minvalue 1;
 
-create table band (
+create table Band (
     band_id bigint primary key default nextval('band_id_seq'),
     name varchar(25) not null
 );
 
-create table bandmembership (
-    band_id integer references band on delete cascade,
-    player_id integer references person on delete CASCADE,
+create table BandMembership (
+    band_id integer references Band on delete cascade,
+    player_id integer references Person on delete cascade,
     primary key (band_id, player_id)
 );
 
-create table sessionplayer (
-    session_id integer references session on delete cascade,
-    player_id integer references person on delete cascade,
+create table SessionPlayer (
+    session_id integer references Session on delete cascade,
+    player_id integer references Person on delete cascade,
     primary key (session_id, player_id)
 );
 
-create table sessionband (
-    session_id integer references session on delete cascade,
-    band_id integer references band on delete cascade,
+create table SessionBand (
+    session_id integer references Session on delete cascade,
+    band_id integer references Band on delete cascade,
     primary key (session_id , band_id)
 );
 
-create table certification (
-    engineer_id integer references person on delete cascade,
-    certificate varchar(100) not NULL,
+create table Certification (
+    engineer_id integer references Person on delete cascade,
+    certificate varchar(100) not null,
     primary key (engineer_id, certificate)
 );
 
-create table management (
+create table Management (
     start_dt timestamp not null,
     end_dt timestamp,
-    studio_id integer references studio on delete cascade,
-    manager_id integer references person on delete cascade,
+    studio_id integer references Studio on delete cascade,
+    manager_id integer references Person on delete cascade,
     check (start_dt <= end_dt),
     primary key (start_dt, studio_id)
 );
 
-CREATE SEQUENCE segment_id_seq
-    AS bigint
-    INCREMENT BY 1
-    MINVALUE 1;
+create sequence segment_id_seq
+    as bigint
+    increment by 1
+    minvalue 1;
 
-create table segment (
+create table Segment (
     segment_id bigint primary key default nextval('segment_id_seq'),
     duration_seconds integer not null,
     format varchar(10) not null,
-    session_id integer references session on delete cascade
+    session_id integer references Session on delete cascade
 );
 
-CREATE SEQUENCE track_id_seq
-    AS bigint
-    INCREMENT BY 1
-    MINVALUE 1;
+create sequence track_id_seq
+    as bigint
+    increment by 1
+    minvalue 1;
 
-create table track (
+create table Track (
     track_id bigint primary key default nextval('track_id_seq'),
     name varchar(50) not null
 );
 
-create table tracksegment (
-    segment_id integer references segment on delete cascade,
-    track_id integer references track on delete cascade,
+create table TrackSegment (
+    segment_id integer references Segment on delete cascade,
+    track_id integer references Track on delete cascade,
     primary key (segment_id, track_id)
 );
 
-CREATE SEQUENCE album_id_seq
-    AS bigint
-    INCREMENT BY 1
-    MINVALUE 1;
+create sequence album_id_seq
+    as bigint
+    increment by 1
+    minvalue 1;
 
-create table album (
+create table Album (
     album_id bigint primary key default nextval('album_id_seq'),
     name varchar(50) not null,
     release_date timestamp not null
 );
 
-create table trackalbum (
-    track_id integer references track on delete cascade,
-    album_id integer references album on delete cascade,
+create table TrackAlbum (
+    track_id integer references Track on delete cascade,
+    album_id integer references Album on delete cascade,
     primary key (track_id, album_id)
 );

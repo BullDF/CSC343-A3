@@ -134,7 +134,7 @@ begin
     -- Session 6
     for i in 22..26 loop
         insert into TrackSegment(segment_id, track_id) values (i, 1);
-        insert into TrackSegment(segment_id, track_id) values (i, 2)
+        insert into TrackSegment(segment_id, track_id) values (i, 2);
     end loop;
 
     -- Session 7

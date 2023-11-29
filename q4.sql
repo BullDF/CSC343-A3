@@ -8,6 +8,9 @@ create table q4 (
     num_players int not null
 );
 
+drop view if exists albums_with_sessions cascade;
+drop view if exists players_with_sessions cascade;
+
 -- Match albums with sessions
 create view albums_with_sessions as
 select album_id, session_id

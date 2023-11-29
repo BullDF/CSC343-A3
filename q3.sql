@@ -8,6 +8,7 @@ create table q3 (
 );
 
 drop view if exists total_segment_duration cascade;
+drop view if exists players_with_sessions cascade;
 
 
 -- Sum the number of seconds for each session

@@ -5,7 +5,7 @@ set search_path to recordingcompany;
 create domain positiveInt as int
     default null
     check (value >= 0);
-    
+
 CREATE DOMAIN positiveFloat AS real
     DEFAULT NULL
     CHECK (VALUE >= 0.0);
@@ -30,7 +30,7 @@ CREATE SEQUENCE studio_id_seq
 create table studio (
     studio_id bigint primary key default nextval('studio_id_seq'),
     name varchar(25) not null,
-    address varchar(50) not null
+    address varchar(100) not null
 );
 
 CREATE SEQUENCE session_id_seq
@@ -73,8 +73,7 @@ create table bandmembership (
 create table certification (
     engineer_id integer references person on delete cascade,
     certificate varchar(100) not NULL,
-    organization varchar(50) not null,
-    primary key (engineer_id, certificate, organization)
+    primary key (engineer_id, certificate)
 );
 
 create table management (

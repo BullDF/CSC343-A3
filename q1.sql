@@ -7,7 +7,7 @@ create table q1 (
     num_albums positiveInt not null
 );
 
-drop view if exists managers cascade;
+drop view if exists current_managers cascade;
 drop view if exists albums_with_studios cascade;
 
 
